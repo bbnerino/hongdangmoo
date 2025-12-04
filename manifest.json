@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Hongdangmoo Extension",
+  "version": "1.0.0",
+  "description": "크롬 익스텐션 프로젝트",
+  "permissions": [
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Hongdangmoo",
+    "default_icon": {
+      "16": "dangmoo.png",
+      "48": "dangmoo.png",
+      "128": "dangmoo.png"
+    }
+  },
+  "icons": {
+    "16": "dangmoo.png",
+    "48": "dangmoo.png",
+    "128": "dangmoo.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["content.css", "dangmoo.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
+
+
+
