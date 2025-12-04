@@ -67,9 +67,9 @@ export function createCountdownPopup(): void {
     position: 'fixed',
     top: `${currentMousePos.y + offsetY}px`,
     left: `${currentMousePos.x + offsetX}px`,
-    width: '120px',
-    height: '120px',
-    backgroundColor: '#4CAF50',
+    width: '60px',
+    height: '60px',
+    backgroundColor: '#FF6B9D',
     borderRadius: '50%',
     display: 'flex',
     alignItems: 'center',
@@ -204,6 +204,14 @@ export function createPracticePopup(sentence: Sentence, onClose: () => void): vo
   document.body.appendChild(practicePopup);
 }
 
+// 팝업 닫기 콜백
+let onCloseCallback: (() => void) | null = null;
+
+// 팝업 닫기 콜백 설정
+export function setOnCloseCallback(callback: () => void): void {
+  onCloseCallback = callback;
+}
+
 // 팝업 닫기
 export function closePracticePopup(): void {
   // 학습 팝업 추적 리스너 제거
@@ -221,5 +229,11 @@ export function closePracticePopup(): void {
     countdownPopup = null;
   }
   currentSentence = null;
+  
+  // 닫기 콜백 실행
+  if (onCloseCallback) {
+    onCloseCallback();
+    onCloseCallback = null;
+  }
 }
 

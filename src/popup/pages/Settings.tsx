@@ -28,12 +28,8 @@ function Settings(): JSX.Element {
     const newSettings = { ...settings, interval };
     setSettings(newSettings);
     chrome.storage.sync.set({ interval }, () => {
-      // 설정 변경 알림을 content script에 전달
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (tabs[0]?.id) {
-          chrome.tabs.sendMessage(tabs[0].id, { type: 'SETTINGS_CHANGED', settings: newSettings });
-        }
-      });
+      // 설정 변경은 storage.onChanged로 background에서 자동 처리됨
+      console.log('[Settings] Interval changed to:', interval);
     });
   };
 
@@ -41,15 +37,19 @@ function Settings(): JSX.Element {
     const newSettings = { ...settings, difficulty };
     setSettings(newSettings);
     chrome.storage.sync.set({ difficulty }, () => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (tabs[0]?.id) {
-          chrome.tabs.sendMessage(tabs[0].id, { type: 'SETTINGS_CHANGED', settings: newSettings });
-        }
-      });
+      // 설정 변경은 storage.onChanged로 background에서 자동 처리됨
+      console.log('[Settings] Difficulty changed to:', difficulty);
     });
   };
 
-  const intervals = [1,3, 5, 10, 30];
+  const intervals = [
+    { value: 10 / 60, label: '10초 (테스트)' },
+    { value: 1, label: '1분' },
+    { value: 3, label: '3분' },
+    { value: 5, label: '5분' },
+    { value: 10, label: '10분' },
+    { value: 30, label: '30분' }
+  ];
   const difficulties = [
     { value: 'beginner', label: '초보' },
     { value: 'intermediate', label: '중급' },
@@ -63,11 +63,11 @@ function Settings(): JSX.Element {
         <div className="settings-options">
           {intervals.map(interval => (
             <button
-              key={interval}
-              className={`settings-button ${settings.interval === interval ? 'active' : ''}`}
-              onClick={() => handleIntervalChange(interval)}
+              key={interval.value}
+              className={`settings-button ${Math.abs(settings.interval - interval.value) < 0.01 ? 'active' : ''}`}
+              onClick={() => handleIntervalChange(interval.value)}
             >
-              {interval}분
+              {interval.label}
             </button>
           ))}
         </div>

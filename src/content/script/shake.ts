@@ -1,4 +1,4 @@
-import { showAnswer, getIsShowingAnswer } from './a';
+import { showAnswer, getIsShowingAnswer, canClose } from './a';
 import { hasPracticePopup, closePracticePopup } from './q';
 
 let lastMousePosition = { x: 0, y: 0 };
@@ -30,10 +30,14 @@ export function handleMouseMove(e: MouseEvent): void {
         shakeCount = 0; // 정답 표시 후 카운트 리셋
       }
     } else {
-      // 정답이 이미 표시되었으면 흔들어서 닫기
-      if (shakeCount >= 3) {
+      // 정답이 이미 표시되었으면 흔들어서 닫기 (최소 5초 경과 후)
+      if (shakeCount >= 3 && canClose()) {
         closePracticePopup();
         detachShakeListener();
+      } else if (shakeCount >= 3 && !canClose()) {
+        // 아직 5초가 지나지 않았으면 카운트만 리셋
+        shakeCount = 0;
+        console.log('[Hongdangmoo] Please wait before closing...');
       }
     }
   }
