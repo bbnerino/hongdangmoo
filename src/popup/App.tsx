@@ -1,23 +1,30 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Login from './pages/Login';
-import Main from './pages/Main';
-import Settings from './pages/Settings';
-import './App.css';
+import React from "react";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Login from "./pages/Login";
+import Main from "./pages/Main";
+import Settings from "./pages/Settings";
+import "./App.css";
 
 function App(): JSX.Element {
-  const logoUrl = chrome.runtime.getURL('dangmoo.png');
-  
+  const logoUrl = chrome.runtime.getURL("dangmoo.png");
+
   return (
     <Router>
       <div className="app">
         <div className="header">
           <img src={logoUrl} alt="Dangmoo" className="logo" />
         </div>
+
         <nav className="nav">
-          <Link to="/login" className="nav-link">Login</Link>
-          <Link to="/main" className="nav-link">Main</Link>
-          <Link to="/settings" className="nav-link">Settings</Link>
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+          <Link to="/main" className="nav-link">
+            Main
+          </Link>
+          <Link to="/settings" className="nav-link">
+            Settings
+          </Link>
         </nav>
         <div className="content">
           <Routes>
@@ -33,4 +40,3 @@ function App(): JSX.Element {
 }
 
 export default App;
-

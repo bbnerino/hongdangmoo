@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -37,7 +38,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /src\/content\/content\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /src\/content\/content\.css$/,
@@ -61,16 +62,20 @@ module.exports = {
       filename: 'popup.html',
       chunks: ['popup']
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    }),
     new CopyWebpackPlugin({
       patterns: [
         { from: 'manifest.json', to: 'manifest.json' },
         { from: 'src/content/content.css', to: 'content.css' },
-        { from: 'public/dangmoo.png', to: 'dangmoo.png' }
+        { from: 'public/dangmoo.png', to: 'dangmoo.png' },
+        { from: 'src/content/data', to: 'data' }
       ]
     })
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
-  }
+  },
+  devtool: false // CSP 문제 해결을 위해 source map 비활성화
 };
-

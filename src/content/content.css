@@ -4,5 +4,62 @@
     sans-serif;
 }
 
+#countdown-popup {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
 
+.countdown-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
 
+.countdown-number {
+  font-size: 48px;
+  font-weight: bold;
+  color: #fff;
+}
+
+#practice-popup {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.practice-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.practice-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.practice-text {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.practice-answer {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+.practice-hint {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+}
